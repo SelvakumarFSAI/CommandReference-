@@ -1,0 +1,109 @@
+### Make life easier ###
+# To run command form edit window to terminal  
+#Preferance: keyshortcut Terminal: run select 
+
+
+
+# Set  auto suggestion completion for azure-cli and kubectl
+
+source /etc/bash_completion.d/azure-cli
+source <(kubectl completion bash)
+complete -F __start_kubectl k
+alias k=kubectl
+alias kn='k config set-context --current --namespace'
+
+# set up autocomplete in bash into the current shell.Please note that bash-completion package should be installed first.
+source <(kubectl completion bash)
+
+# add the following line to your bash shell profile (vim ~/.bashrc)
+
+source <(kubectl completion bash)
+complete -F __start_kubectl k
+alias k=kubectl
+alias kn='k config set-context --current --namespace'
+
+# reload the bash profile to make the alias available
+source ~/.bashrc
+
+# Change the bash prompt to show user, host and current directory
+ export PS1="\u@\h:\w$ "
+
+
+## AZURE Command ##
+
+az group create -a australiaeast -n ak-rg
+az account show -o table
+
+az group list -o table
+az group list --query "[].name , [].Location" -o table
+az group list --query "[?location=='australiaeast'].{Name:name}, Staus" -o table
+az group list --query "[].{Name:name, Location:location, ID:id}" -o table
+az group list -o json
+
+
+
+------------------------------
+
+az group create -l australiaeast -n aks-rg
+
+
+# create AKS cluster
+az aks create -g aks-rg -n aks  --node-count 2 --generate-ssh-keys
+
+# create AKS cluster with specific kubernetes version
+az aks create -g aks-rg -n aks --kubernetes-version 1.21.2
+
+yml
+az aks delete --name <cluster-name> --resource-group <rg-name>
+
+# install kubectl command line tool
+az aks install-cli 
+# get AKS cluster credentials
+az aks get-credentials  --resource-group aks-rg --name aks
+az aks get-credentials -g aks-rg -n aks --overwrite-existing
+
+kubectl config get-contexts
+kubectl config current-context
+
+az next 
+
+
+# To registerContainerService
+
+ az feature show     --namespace Microsoft.ContainerService --name AKS-VPAPreview
+ az feature register --namespace Microsoft.ContainerService --name AKS-VPAPreview
+ az provider register --namespace Microsoft.ContainerService --name AKS-VPAPreview
+
+az feature show --name AKS-VPAPreview --namespace Microsoft.ContainerService
+
+
+
+az aks get-credentials -g dw-test-rg -n dw-test-aks --overwrite-existing
+
+
+# verify the connection to the cluster
+ k run nginx --image nginx
+ k get pods -o wide
+ # to access the pod terminal
+ k exec -it <pod-name> -- /bin/bash
+ k exec -it nginx -- /bin/bash
+
+# decode base64 string
+echo YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXo= |base64 -d 
+
+# check kube-proxy version
+ k get pod -o wide  -n kube-system |grep -i kube-proxy
+
+    k get nodes -o wide
+    k describe nodes aks-nodepool1-39973539-vmss000001
+ k describe nodes aks-nodepool1-39973539-vmss000000
+ 
+ k get nodes -o wide
+ k describe nodes
+ k get csrs
+ k get all --all-namespaces 
+ k get all -o wide
+ k get pods -o wide    
+
+kubectl apply -f sample\Resources.yml ./Resources.yml
+C:\Users\SelvakumarShanmugam\myworkspace\flowise-aks\sample\Resources.yml
