@@ -106,4 +106,4 @@ echo YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXo= |base64 -d
  k get pods -o wide    
 
 kubectl apply -f sample\Resources.yml ./Resources.yml
-C:\Users\SelvakumarShanmugam\myworkspace\flowise-aks\sample\Resources.yml
+C:\Users\user\myworkspace\flowise-aks\sample\Resources.yml
